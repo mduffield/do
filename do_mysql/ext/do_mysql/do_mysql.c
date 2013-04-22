@@ -341,6 +341,7 @@ void do_mysql_full_connect(VALUE self, MYSQL *db) {
 
 // For really anscient MySQL versions we don't attempt any strictness
 #ifdef HAVE_MYSQL_GET_SERVER_VERSION
+/* - Commenting out to work with 4.0 server.  Stupid fix, but should work.
   //4.0 does not support sql_mode at all, while later 4.x versions do not support certain session parameters
   if (mysql_get_server_version(db) >= 50000) {
     do_mysql_cCommand_execute(Qnil, self, db, rb_str_new2("SET SESSION sql_mode = 'ANSI,NO_BACKSLASH_ESCAPES,NO_DIR_IN_CREATE,NO_ENGINE_SUBSTITUTION,NO_UNSIGNED_SUBTRACTION,TRADITIONAL'"));
@@ -348,6 +349,7 @@ void do_mysql_full_connect(VALUE self, MYSQL *db) {
   else if (mysql_get_server_version(db) >= 40100) {
     do_mysql_cCommand_execute(Qnil, self, db, rb_str_new2("SET SESSION sql_mode = 'ANSI,NO_DIR_IN_CREATE,NO_UNSIGNED_SUBTRACTION'"));
   }
+*/
 #endif
 
   rb_iv_set(self, "@connection", Data_Wrap_Struct(rb_cObject, 0, 0, db));
